@@ -12,8 +12,8 @@ import pandas as pd
 from scipy import stats
 
 st.title('CSAT Calculator')
-st.write('... Simplify your CSAT calculation with a statistical rigor ...')
-st.write('... Please input survey response result on the left-sidebar ... ')
+st.write('''Simplify your CSAT calculation with a statistical rigor.
+    Please input survey response result on the left-sidebar''')
 
 #############################################################################
 st.header('Part 1. CSAT calculation (without confidence interval)')
@@ -67,10 +67,9 @@ csat_score_low, csat_score_high = stats.t.interval(
     conf_level, degrees_freedom, csat_score, std_csat_score)
 csat_percent_low, csat_percent_high = stats.t.interval(
     conf_level, degrees_freedom, csat_percent, std_csat_percent)
-
-st.write('... CSAT score is:      {0:.3f} ({1:.3f}, {2:.3f})'.format(
+st.write('... CSAT score is:      {0:.2f} ({1:.2f}, {2:.2f})'.format(
     csat_score, csat_score_low, csat_score_high))
-st.write('... CSAT percentage is: {0:.3f} ({1:.3f}, {2:.3f})'.format(
+st.write('... CSAT percentage is: {0:.2f} ({1:.2f}, {2:.2f})'.format(
     csat_percent, csat_percent_low, csat_percent_high))
 
 #############################################################################
@@ -90,15 +89,11 @@ csat_score_low_fpc, csat_score_high_fpc = stats.t.interval(
 csat_percent_low_fpc, csat_percent_high_fpc = stats.t.interval(
     conf_level, degrees_freedom, csat_percent,
     std_csat_percent * max(fpc, default_zero))
-
-st.write('CSAT score is:      {0:.3f} ({1:.3f}, {2:.3f})'.format(
+st.write('... CSAT score is:      {0:.2f} ({1:.2f}, {2:.2f})'.format(
     csat_score, csat_score_low_fpc, csat_score_high_fpc))
-st.write('CSAT percentage is: {0:.3f} ({1:.3f}, {2:.3f})'.format(
+st.write('... CSAT percentage is: {0:.2f} ({1:.2f}, {2:.2f})'.format(
     csat_percent, csat_percent_low_fpc, csat_percent_high_fpc))
 
-st.write(' ')
-st.write(' ')
-st.write(' ')
-st.write(' ')
-st.write('Author: Pan Wu')
-st.write('Have a question? Reach me at https://www.linkedin.com/in/panwu/')
+st.write(' ------------- ')
+st.write('''Have a question? Reach out to Pan (author) at
+    https://www.linkedin.com/in/panwu/''')
