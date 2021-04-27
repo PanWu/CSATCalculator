@@ -1,27 +1,35 @@
+'''
+    File name: csat_calculator.py
+    Author: Pan Wu (https://www.linkedin.com/in/panwu/)
+    Date created: 4/27/2021
+    Date last modified: 4/27/2021
+    Python Version: 3.7
+'''
+
 import streamlit as st
 import numpy as np
 import pandas as pd
 from scipy import stats
 
 st.title('CSAT Calculator')
-st.write('To simplify your CSAT calculation with statistical confidence')
-st.write('... please input survey response result in the left-sidebar ... ')
+st.write('... Simplify your CSAT calculation with a statistical rigor ...')
+st.write('... Please input survey response result on the left-sidebar ... ')
 
 #############################################################################
 st.header('Part 1. CSAT calculation (without confidence interval)')
 # generate the side bar for survey result input, survey have 5 rating levels
+# default values are set with survey result {1, 5, 3, 4, 5, 2, 1, 4, 3, 4}
+default_response = [2, 1, 2, 3, 2]
 n_level = 5
 res_list = [
     st.sidebar.number_input(
         '# response with {0} star(s): '.format(i+1),
-        min_value=0, max_value=None, step=1,
+        min_value=0, max_value=None, step=1, value=default_response[i],
         key='res_list_{0}'.format(i), format='%d')
     for i in range(n_level)
 ]
 survey_result = np.array(res_list)
-df_survey = pd.DataFrame({
-    'rating': [i for i in range(1, 6)],
-    'count': survey_result})
+df_survey = pd.DataFrame({'rating': range(1, 6), 'count': survey_result})
 st.write(df_survey)
 
 # calculate CSAT score and percentage without confidence interval calculation
@@ -40,7 +48,7 @@ st.header('Part 2. CSAT (with confidence interval)')
 conf_level = st.sidebar.slider(
     'Please choose the confidence level:',
     0.80, 0.99, value=0.95, step=0.01)
-survey_count = survey_result.sum()
+survey_count = df_survey['count'].sum()
 degrees_freedom = survey_count - 1
 st.write('(degree of freedom, confidence level): ({0:d}, {1:.2f})'.format(
     degrees_freedom, conf_level))
@@ -71,7 +79,7 @@ survey_total = st.number_input(
     '# Total survey sent out (regardless with response or not): ',
     value=survey_count, min_value=0, max_value=None, step=1,
     key='survey_total', format='%d')
-# add finite population correction
+# add finite population correction (use default zero to avoid nan)
 fpc = np.sqrt((survey_total - survey_count) / (survey_total - 1))
 default_zero = 0.00000001
 
@@ -87,3 +95,10 @@ st.write('CSAT score is:      {0:.3f} ({1:.3f}, {2:.3f})'.format(
     csat_score, csat_score_low_fpc, csat_score_high_fpc))
 st.write('CSAT percentage is: {0:.3f} ({1:.3f}, {2:.3f})'.format(
     csat_percent, csat_percent_low_fpc, csat_percent_high_fpc))
+
+st.write(' ')
+st.write(' ')
+st.write(' ')
+st.write(' ')
+st.write('Author: Pan Wu')
+st.write('Have a question? Reach me at https://www.linkedin.com/in/panwu/')
