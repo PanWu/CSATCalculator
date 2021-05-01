@@ -2,7 +2,7 @@
     File name: csat_calculator.py
     Author: Pan Wu (https://www.linkedin.com/in/panwu/)
     Date created: 4/27/2021
-    Date last modified: 4/27/2021
+    Date last modified: 5/1/2021
     Python Version: 3.7
 '''
 
@@ -14,14 +14,14 @@ from scipy import stats
 st.title('CSAT Calculator')
 st.write('**Straightforward CSAT calculation with statistical rigor.**')
 st.write('''Please input the survey response result on the left sidebar,
-    and the following table will be updated accordingly:''')
+    and the following table & CSAT results will be updated accordingly:''')
 # generate the side bar for survey result input, survey have 5 rating levels
 # default values are set with survey result {1, 5, 3, 4, 5, 2, 1, 4, 3, 4}
 default_response = [2, 1, 2, 3, 2]
 n_level = 5
 res_list = [
     st.sidebar.number_input(
-        '# response with {0} star(s): '.format(i+1),
+        'r{0}: # response with {0} star(s): '.format(i+1),
         min_value=0, max_value=None, step=1, value=default_response[i],
         key='res_list_{0}'.format(i), format='%d')
     for i in range(n_level)]
@@ -30,7 +30,7 @@ df_survey = pd.DataFrame({'rating': range(1, 6), 'count': survey_result})
 st.dataframe(df_survey)
 
 #############################################################################
-st.header('Part 1. CSAT calculation (without confidence interval)')
+st.header('Part 1. CSAT calculation (no confidence interval)')
 # calculate CSAT score and percentage without confidence interval calculation
 csat_score = (df_survey['rating'] * df_survey['count']).sum() \
     / df_survey['count'].sum()
@@ -76,7 +76,7 @@ st.write('... CSAT percentage is: {0:.2f} ({1:.2f}, {2:.2f})'.format(
 #############################################################################
 st.header('Part 3. CSAT (w/ confidence interval and finite population correction)')
 survey_total = st.number_input(
-    '# Total survey sent out (regardless with response or not): ',
+    '# Total survey sent out (regardless with response or not):',
     value=survey_count, min_value=0, max_value=None, step=1,
     key='survey_total', format='%d')
 # add finite population correction (use default zero to avoid nan)
@@ -96,5 +96,8 @@ st.write('... CSAT percentage is: {0:.2f} ({1:.2f}, {2:.2f})'.format(
     csat_percent, csat_percent_low_fpc, csat_percent_high_fpc))
 
 st.write(' ------------- ')
-st.write('''Have a question? Reach out to Pan (author) at
+st.write('''The CSAT calculation, including score and confidence interval,
+    is based on formulas in this blog [CSAT: An emperor with no clothes?]
+    (https://medium.com/data-science-at-microsoft/csat-an-emperor-with-no-clothes-e1c27a1b93eb)''')
+st.write('''Have a question? Reach out to Pan at
     https://www.linkedin.com/in/panwu/''')
