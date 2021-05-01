@@ -21,7 +21,7 @@ default_response = [2, 1, 2, 3, 2]
 n_level = 5
 res_list = [
     st.sidebar.number_input(
-        'r{0}: # response with {0} star(s): '.format(i+1),
+        '# of {0}-star rating response:'.format(i+1),
         min_value=0, max_value=None, step=1, value=default_response[i],
         key='res_list_{0}'.format(i), format='%d')
     for i in range(n_level)]
