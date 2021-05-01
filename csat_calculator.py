@@ -99,5 +99,19 @@ st.write(' ------------- ')
 st.write('''The CSAT calculation, including score and confidence interval,
     is based on formulas in this blog [CSAT: An emperor with no clothes?]
     (https://medium.com/data-science-at-microsoft/csat-an-emperor-with-no-clothes-e1c27a1b93eb)''')
-st.write('''Have a question? Reach out to Pan at
-    https://www.linkedin.com/in/panwu/''')
+st.write('''Why confidence interval is needed?
+    \"* ... CSAT score is based on a subset of a population —
+    just those customers who’ve responded to the survey —
+    but is intended to represent the satisfaction of the entire population.
+    Because not every customer responds to the survey,
+    the results need to account for a degree of uncertainty.* \" ''')
+st.write('''Why finite population correction may be needed?
+    \"* ... CSAT is designed to measure customer satisfaction
+    with a specific transaction, and companies often know how many
+    customers completed that transaction.
+    If the response rate for a survey is 5% or higher,
+    companies should apply the finite population correction (FPC),
+    which accounts for an increase in accuracy when a relatively
+    large proportion of a population is sampled* \" ''')
+st.write('''Have a question? Reach out to Pan on [LinkedIn]
+    (https://www.linkedin.com/in/panwu/)''')
