@@ -7,6 +7,8 @@
 '''
 
 import streamlit as st
+import streamlit.components.v1 as components
+
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -115,3 +117,14 @@ st.write('''Why finite population correction may be needed?
     large proportion of a population is sampled* \" ''')
 st.write('''Have a question? Reach out to Pan on [LinkedIn]
     (https://www.linkedin.com/in/panwu/)''')
+
+# enable Google Analytics tracking
+ga_tracking = '''<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L8DC03KQGF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-L8DC03KQGF');
+</script>'''
+components.html(ga_tracking)
